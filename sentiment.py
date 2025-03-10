@@ -54,8 +54,14 @@ for i, row in df.iterrows():
     res[myid] = sia.polarity_scores(text)
 
 count = 0
-for key, value in res.items():
-    if count >= 3:  # Stop after 3
-        break
-    print(f"{key}: {value}")
-    count += 1
+# for key, value in res.items():
+#     if count >= 3:  # Stop after 3
+#         break
+#     print(f"{key}: {value}")
+#     count += 1
+
+vaders = pd.DataFrame(res).T
+vaders = vaders.reset_index().rename(columns={'index': 'Id'})
+vaders = vaders.merge(df, how='left')
+
+print(vaders.head())
