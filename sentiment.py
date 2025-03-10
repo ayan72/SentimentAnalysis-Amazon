@@ -46,3 +46,16 @@ sia = SentimentIntensityAnalyzer()
 print(sia.polarity_scores('I am so happy!'))
 print(sia.polarity_scores('This is the worst song ever.'))
 print(sia.polarity_scores(example))
+
+res = {}
+for i, row in df.iterrows():
+    myid = row['Id']
+    text = row['Text']
+    res[myid] = sia.polarity_scores(text)
+
+count = 0
+for key, value in res.items():
+    if count >= 3:  # Stop after 3
+        break
+    print(f"{key}: {value}")
+    count += 1
